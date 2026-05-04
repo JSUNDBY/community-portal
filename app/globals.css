@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f9fb;
+  --foreground: #0b1f3b;
+  --paper: #ffffff;
+  --line: #e2e8f0;
+  --ink-soft: #475569;
+  --ink-softer: #94a3b8;
+  /* Brand vars — overridden inline in app/layout.tsx from COMMUNITY config. */
+  --primary: #0b1f3b;
+  --accent: #3b82f6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-softer: var(--ink-softer);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), -apple-system, system-ui, sans-serif;
+}
