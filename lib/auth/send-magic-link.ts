@@ -48,6 +48,15 @@ export async function sendBrandedMagicLink(
   const link = buildCallbackUrl(args.redirectTo, hashedToken, verificationType);
   const { subject, html, text } = renderMagicLinkEmail({ link });
 
+  // Dev convenience: when Resend isn't configured, the email queues
+  // as "skipped" and there's no way to click through. Log the link
+  // to the dev server's console so the developer can grab it manually.
+  if (!process.env.RESEND_API_KEY) {
+    console.log(
+      `\n[magic-link] ${args.email}\n  → ${link}\n  (no RESEND_API_KEY set; copy + paste this URL to sign in)\n`
+    );
+  }
+
   const send = await sendEmail({
     to: args.email,
     subject,
