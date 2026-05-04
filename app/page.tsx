@@ -28,8 +28,8 @@ function PublicLanding() {
           {COMMUNITY.name}
         </h1>
         <p className="text-[16px] text-(--ink-soft) leading-[1.55] mb-8">
-          This portal is for {COMMUNITY.name} residents. Sign in below, or
-          contact the board if you haven&rsquo;t been added yet.
+          This portal is for {COMMUNITY.name}{" "}residents. Sign in below,
+          or contact the board if you haven&rsquo;t been added yet.
         </p>
         <div className="flex flex-col gap-3">
           <Link
