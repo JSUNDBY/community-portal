@@ -1,7 +1,9 @@
+import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { ensureProfile } from "@/lib/profile";
 import { COMMUNITY } from "@/lib/config";
+import { signInAsDemo } from "@/app/login/actions";
 
 export default async function HomePage() {
   const supabase = await createClient();
@@ -19,33 +21,75 @@ export default async function HomePage() {
 
 function PublicLanding() {
   return (
-    <main className="flex-1 flex items-center justify-center px-6 py-16">
-      <div className="w-full max-w-[480px] text-center">
-        <p className="text-[12px] tracking-[0.08em] uppercase text-(--ink-softer) font-semibold mb-2">
-          Resident portal
-        </p>
-        <h1 className="text-[34px] font-semibold tracking-[-0.02em] text-(--primary) mb-3 leading-tight">
-          {COMMUNITY.name}
-        </h1>
-        <p className="text-[16px] text-(--ink-soft) leading-[1.55] mb-8">
-          This portal is for {COMMUNITY.name}{" "}residents. Sign in below,
-          or contact the board if you haven&rsquo;t been added yet.
-        </p>
-        <div className="flex flex-col gap-3">
-          <Link
-            href="/login"
-            className="bg-(--accent) hover:opacity-90 text-white font-medium text-[15px] py-3.5 rounded-[10px] transition"
-          >
-            Sign in
-          </Link>
-          <a
-            href={`mailto:${COMMUNITY.contactEmail}`}
-            className="text-[14px] text-(--ink-soft) hover:text-(--accent) transition"
-          >
-            Contact the board →
-          </a>
-        </div>
+    <main className="flex-1 flex flex-col">
+      {/* Heading is visually replaced by the hero image (which has the
+          Sandstone Ridge wordmark baked in), but kept for screen readers
+          and crawlers. */}
+      <h1 className="sr-only">{COMMUNITY.name}</h1>
+
+      <div className="relative w-full aspect-[3/2] sm:aspect-[2/1] max-h-[640px] overflow-hidden">
+        <Image
+          src="/hero.png"
+          alt={`Entrance to ${COMMUNITY.name}`}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
       </div>
+
+      <section className="flex-1 flex items-center justify-center px-6 py-12">
+        <div className="w-full max-w-[440px] text-center">
+          <p className="text-[12px] tracking-[0.08em] uppercase text-(--ink-softer) font-semibold mb-3">
+            Resident portal
+          </p>
+          <p className="text-[16px] text-(--ink-soft) leading-[1.55] mb-8">
+            Sign in below, or contact the board if you haven&rsquo;t been
+            added yet.
+          </p>
+          <div className="flex flex-col gap-3">
+            <Link
+              href="/login"
+              className="bg-(--accent) hover:opacity-90 text-white font-medium text-[15px] py-3.5 rounded-[10px] transition"
+            >
+              Sign in
+            </Link>
+            <a
+              href={`mailto:${COMMUNITY.contactEmail}`}
+              className="text-[14px] text-(--ink-soft) hover:text-(--accent) transition"
+            >
+              Contact the board →
+            </a>
+          </div>
+
+          <div className="mt-10 pt-6 border-t border-(--line)">
+            <p className="text-[11px] tracking-[0.08em] uppercase text-(--ink-softer) font-semibold mb-3">
+              Just looking around?
+            </p>
+            <form action={signInAsDemo} className="flex flex-col sm:flex-row gap-2 justify-center">
+              <button
+                type="submit"
+                name="role"
+                value="board"
+                className="text-[14px] font-medium text-(--primary) bg-(--paper) border border-(--line) hover:border-(--accent) hover:text-(--accent) px-4 py-2.5 rounded-lg transition"
+              >
+                Tour as a board member
+              </button>
+              <button
+                type="submit"
+                name="role"
+                value="resident"
+                className="text-[14px] font-medium text-(--primary) bg-(--paper) border border-(--line) hover:border-(--accent) hover:text-(--accent) px-4 py-2.5 rounded-lg transition"
+              >
+                Tour as a resident
+              </button>
+            </form>
+            <p className="text-[12px] text-(--ink-softer) mt-3">
+              Both demo accounts share the same data. Anything you change is fine to test.
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
