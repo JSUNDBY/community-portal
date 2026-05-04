@@ -1,4 +1,5 @@
 import { createServiceClient } from "@/lib/supabase/service";
+import { COMMUNITY } from "@/lib/config";
 
 /**
  * Outbound SMS wrapper. TCPA-defensible: refuses to send unless an
@@ -6,6 +7,22 @@ import { createServiceClient } from "@/lib/supabase/service";
  *
  * As with email, every send is logged to outbound_messages first.
  */
+
+/**
+ * The exact opt-in language shown to residents on the SMS consent form.
+ * Stored verbatim into `sms_consents.consent_text` so we can prove
+ * what they agreed to. Keep this synchronized with what the form
+ * actually displays — never paraphrase one without the other.
+ */
+export function getSmsConsentText(): string {
+  return [
+    `By providing your phone number and checking this box, you consent`,
+    `to receive SMS messages from ${COMMUNITY.name} regarding board`,
+    `announcements, meeting reminders, and community alerts. Message and`,
+    `data rates may apply. Reply STOP to unsubscribe at any time. You`,
+    `can also update this preference in Settings.`,
+  ].join(" ");
+}
 
 export type SendSmsInput = {
   /** E.164 phone (e.g. "+15125551234"). */

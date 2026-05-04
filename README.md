@@ -69,7 +69,30 @@ clicks a magic-link, the portal claims their invite and links them to a unit.
 3. Compose, choose email + (optional) SMS, hit publish.
 
 Announcements fan out via Resend (email) and Twilio (SMS). Every send is
-logged in the `outbound_messages` table for audit.
+logged in the `outbound_messages` table — the board can review delivery
+status at `/board/messages`.
+
+## Board tools
+
+Once signed in as a board member, the dashboard at `/board` exposes:
+
+- **Invite a resident** — `/board/invite` pre-registers an email so it
+  gets linked to a unit on first sign-in.
+- **Issue queue** — `/board/issues` shows reports submitted via `/report`,
+  with open / working / resolved / closed status transitions.
+- **Outbound message log** — `/board/messages` is the audit trail of
+  every email + SMS the portal has sent or attempted.
+
+## Twilio inbound webhook
+
+Configure this URL in the Twilio console under your messaging service →
+Inbound Settings → "Send a webhook":
+
+    https://portal.sandstoneridge.com/api/webhooks/twilio/sms
+
+The handler verifies `X-Twilio-Signature` with `TWILIO_AUTH_TOKEN` and
+syncs STOP / START keywords into the `sms_consents` table for TCPA
+compliance.
 
 ## Where the data lives
 

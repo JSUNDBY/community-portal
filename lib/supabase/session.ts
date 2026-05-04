@@ -2,10 +2,15 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 const PUBLIC_PATHS = ["/", "/login", "/auth", "/report"];
+const SYSTEM_PATHS = ["/api/webhooks"]; // Twilio etc — never gated.
 const STATIC_PREFIXES = ["/_next", "/favicon", "/logo", "/robots.txt", "/sitemap.xml"];
 
 function isPublic(path: string) {
   return PUBLIC_PATHS.some((p) => path === p || path.startsWith(p + "/") || path.startsWith(p + "?"));
+}
+
+function isSystem(path: string) {
+  return SYSTEM_PATHS.some((p) => path === p || path.startsWith(p + "/"));
 }
 
 function isStatic(path: string) {
@@ -54,7 +59,7 @@ export async function updateSession(request: NextRequest) {
 
   const path = request.nextUrl.pathname;
 
-  if (isStatic(path) || isPublic(path)) {
+  if (isStatic(path) || isSystem(path) || isPublic(path)) {
     return supabaseResponse;
   }
 

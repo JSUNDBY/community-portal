@@ -1,6 +1,13 @@
+import { cache } from "react";
 import { PageShell } from "@/app/_components/PageShell";
 import { COMMUNITY } from "@/lib/config";
 import { submitReport } from "./actions";
+
+// Anti-bot guard. Bots submit instantly; humans take >2s. We embed
+// the render-time epoch in a hidden field and reject submissions where
+// (now - rendered) is implausibly small. cache() keeps the value
+// stable per request render so React doesn't flag the impure call.
+const getRenderedAt = cache(() => Date.now());
 
 export default async function ReportPage({
   searchParams,
@@ -8,6 +15,7 @@ export default async function ReportPage({
   searchParams: Promise<{ ok?: string; error?: string }>;
 }) {
   const { ok, error } = await searchParams;
+  const renderedAt = getRenderedAt();
 
   return (
     <PageShell title="Report an issue">
@@ -28,7 +36,23 @@ export default async function ReportPage({
         </div>
       )}
 
-      <form action={submitReport} className="bg-(--paper) border border-(--line) rounded-xl p-6 space-y-4">
+      <form
+        action={submitReport}
+        className="bg-(--paper) border border-(--line) rounded-xl p-6 space-y-4"
+      >
+        <input type="hidden" name="rendered_at" value={renderedAt} />
+        {/* Honeypot: hidden from real users via aria + tab/visual rules. */}
+        <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px]">
+          <label htmlFor="website">Website (leave blank)</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+
         <div>
           <label
             htmlFor="category"
@@ -61,6 +85,7 @@ export default async function ReportPage({
             id="description"
             name="description"
             required
+            minLength={10}
             rows={6}
             placeholder="Tell us what's going on…"
             className="w-full bg-(--background) border border-(--line) rounded-[10px] px-4 py-3 text-[15px] text-(--primary) placeholder:text-(--ink-softer)"
