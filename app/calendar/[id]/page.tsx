@@ -93,10 +93,16 @@ export default async function EventDetailPage({
           )}
         </div>
         {event.description && (
-          <p className="text-[15px] text-(--primary) leading-[1.6] whitespace-pre-line">
+          <p className="text-[15px] text-(--primary) leading-[1.6] whitespace-pre-line mb-4">
             {event.description}
           </p>
         )}
+        <a
+          href={`/calendar/${event.id}/ics`}
+          className="inline-block text-[13px] text-(--accent) hover:underline underline-offset-2"
+        >
+          Add to my calendar (.ics)
+        </a>
       </div>
 
       <div className="bg-(--paper) border border-(--line) rounded-xl p-6 mb-5">

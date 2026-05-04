@@ -116,6 +116,15 @@ export default async function NewEventPage({
           />
         </Field>
 
+        <label className="flex items-start gap-3 text-[14px] text-(--primary) cursor-pointer pt-2">
+          <input type="checkbox" name="notify" defaultChecked={false} className="mt-1" />
+          <span>
+            Notify residents who opted in (email + SMS per their
+            preferences). Off by default — flip on for board meetings or
+            community-wide events.
+          </span>
+        </label>
+
         <button
           type="submit"
           className="bg-(--accent) text-white font-medium text-[15px] px-5 py-3 rounded-[10px] hover:opacity-90 transition"

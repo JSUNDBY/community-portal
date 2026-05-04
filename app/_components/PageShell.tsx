@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { COMMUNITY } from "@/lib/config";
+import { SignOutFooter } from "./SignOutFooter";
 
 export function PageShell({
   title,
@@ -20,6 +21,7 @@ export function PageShell({
         {title}
       </h1>
       <div>{children}</div>
+      <SignOutFooter />
     </main>
   );
 }
