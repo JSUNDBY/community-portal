@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { COMMUNITY } from "@/lib/config";
-import { SignOutFooter } from "./SignOutFooter";
 
 export function PageShell({
   title,
@@ -15,13 +13,12 @@ export function PageShell({
         href="/"
         className="text-[13px] text-(--ink-soft) hover:text-(--accent) transition"
       >
-        ← {COMMUNITY.name}
+        ← Home
       </Link>
       <h1 className="text-[28px] font-semibold tracking-[-0.02em] text-(--primary) mt-4 mb-6">
         {title}
       </h1>
       <div>{children}</div>
-      <SignOutFooter />
     </main>
   );
 }

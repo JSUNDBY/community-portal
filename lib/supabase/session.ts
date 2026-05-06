@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_PATHS = ["/", "/login", "/auth", "/report", "/about"];
+const PUBLIC_PATHS = ["/", "/login", "/auth", "/report", "/about", "/terms", "/privacy"];
 const SYSTEM_PATHS = ["/api/webhooks"]; // Twilio etc — never gated.
 const STATIC_PREFIXES = ["/_next", "/favicon", "/logo", "/robots.txt", "/sitemap.xml"];
 
