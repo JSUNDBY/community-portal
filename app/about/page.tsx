@@ -179,6 +179,55 @@ export default function AboutPage() {
 
       <Ornament />
 
+      {/* PMC partnership — sensitivity for managed communities */}
+      <section className="max-w-4xl mx-auto px-6 py-16 sm:py-20">
+        <Eyebrow>For managed communities</Eyebrow>
+        <h2 className="font-(family-name:--font-serif) text-[28px] sm:text-[36px] text-(--primary) leading-[1.2] tracking-[-0.01em] mb-3 max-w-2xl">
+          We work alongside your management company, not instead of them.
+        </h2>
+        <p className="text-[16px] text-(--ink-soft) mb-8 max-w-2xl leading-[1.6]">
+          If your community already has a property management firm handling
+          accounting, dues, vendor invoices, and work orders — keep them.
+          The portal is for the resident-facing layer your management
+          software was never great at.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-(--paper) border border-(--line) rounded-xl p-6">
+            <p className="text-[11px] tracking-[0.18em] uppercase text-(--ink-softer) font-semibold mb-3">
+              Your PMC keeps doing
+            </p>
+            <ul className="space-y-2 text-[14px] text-(--ink-soft) leading-[1.5]">
+              <li>· Bookkeeping and accounting</li>
+              <li>· Dues collection and assessment billing</li>
+              <li>· Vendor management and work orders</li>
+              <li>· Compliance reporting to the board</li>
+              <li>· Annual budget and audit support</li>
+            </ul>
+          </div>
+          <div className="bg-(--paper) border-2 border-(--accent) rounded-xl p-6 shadow-sm">
+            <p className="text-[11px] tracking-[0.18em] uppercase text-(--accent) font-semibold mb-3">
+              We do the resident layer
+            </p>
+            <ul className="space-y-2 text-[14px] text-(--primary) leading-[1.5]">
+              <li>· Magic-link sign-in for every resident</li>
+              <li>· Branded calendar, announcements, document vault</li>
+              <li>· Email + opt-in SMS fan-out for board updates</li>
+              <li>· Issue intake routed to whoever the board names</li>
+              <li>· Mobile-installable PWA, your community&rsquo;s color</li>
+            </ul>
+          </div>
+        </div>
+        <p className="text-[14px] text-(--ink-soft) mt-6 leading-[1.6] max-w-3xl">
+          The board contact for issue reports, the records custodian for
+          document downloads, the address that announcement replies go
+          to — all configurable. If your PMC fields resident calls today,
+          set their email as the contact and the portal will route
+          residents to them automatically.
+        </p>
+      </section>
+
+      <Ornament />
+
       {/* Who it's for */}
       <section className="max-w-3xl mx-auto px-6 py-16 sm:py-20 text-center">
         <Eyebrow>Who it&rsquo;s for</Eyebrow>
